@@ -3,7 +3,7 @@
 
 <header class="navbar">
   <div class="logo">
-    <a href="<c:url value='/'/>" class="image-box" aria-label="Trang chủ">
+    <a href="<c:url value='/home.jsp'/>" class="image-box" aria-label="Trang chủ">
       <img src="<c:url value='/img/logo.png'/>" alt="Logo Book Store" class="logo_book"/>
     </a>
   </div>

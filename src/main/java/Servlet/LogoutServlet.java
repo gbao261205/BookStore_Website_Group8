@@ -10,6 +10,6 @@ public class LogoutServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     HttpSession ss = req.getSession(false);
     if (ss != null) ss.invalidate();
-    resp.sendRedirect(req.getContextPath() + "/home");
+    resp.sendRedirect(req.getContextPath() + "/home.jsp");
   }
 }

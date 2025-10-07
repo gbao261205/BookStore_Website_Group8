@@ -211,4 +211,28 @@ public class UserDB {
         return addrs;
     }
     
+    // THÊM mới: kiểm tra username đã tồn tại
+    public boolean usernameExists(String username) throws SQLException {
+        String sql = "SELECT 1 FROM accounts WHERE username = ? LIMIT 1";
+        try (Connection cn = getConn();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    // (tuỳ chọn) kiểm tra email đã dùng
+    public boolean emailExists(String email) throws SQLException {
+        String sql = "SELECT 1 FROM users WHERE email = ? LIMIT 1";
+        try (Connection cn = getConn();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
 }

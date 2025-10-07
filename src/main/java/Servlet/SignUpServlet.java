@@ -13,6 +13,7 @@ import jakarta.servlet.http.*;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.util.UUID;
 import javax.naming.InitialContext;
@@ -44,7 +45,7 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
 
         req.setCharacterEncoding("UTF-8");
         String fullName  = req.getParameter("fullName");
@@ -69,35 +70,55 @@ public class SignUpServlet extends HttpServlet {
         }
 
         try {
-            // Tạo ID
-            String userId = "U-" + UUID.randomUUID().toString().substring(0, 8);
-            String accId  = "A-" + UUID.randomUUID().toString().substring(0, 8);
+            // Kiểm tra trùng trước khi insert (thân thiện hơn)
+            if (userDB.usernameExists(username)) {
+                req.setAttribute("error", "Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.");
+                req.getRequestDispatcher("/SignUp.jsp").forward(req, resp);
+                return;
+            }
+            if (userDB.emailExists(email)) {   // nếu email của bạn đặt UNIQUE
+                req.setAttribute("error", "Email đã được đăng ký. Vui lòng dùng email khác.");
+                req.getRequestDispatcher("/SignUp.jsp").forward(req, resp);
+                return;
+            }
 
-            // Tạo user (tạm dùng Admin làm lớp cụ thể)
+            // --- tạo User + Account như trước (rút gọn) ---
+            String userId = "U-" + java.util.UUID.randomUUID().toString().substring(0, 8);
+            String accId  = "A-" + java.util.UUID.randomUUID().toString().substring(0, 8);
+
             User u = new Admin();
             u.setId(userId);
             u.setFullName(fullName);
             u.setEmailAddress(email);
-            if (!isBlank(dobStr)) {
-                u.setDateOfBirth(LocalDate.parse(dobStr)); // yyyy-MM-dd
-            }
-            EGender gender = EGender.UNKNOWN;
-            if ("MALE".equalsIgnoreCase(genderStr)) gender = EGender.MALE;
-            if ("FEMALE".equalsIgnoreCase(genderStr)) gender = EGender.FEMALE;
-            u.setGender(gender);
+            if (!isBlank(dobStr)) u.setDateOfBirth(java.time.LocalDate.parse(dobStr));
+            EGender g = EGender.UNKNOWN;
+            if ("MALE".equalsIgnoreCase(genderStr)) g = EGender.MALE;
+            if ("FEMALE".equalsIgnoreCase(genderStr)) g = EGender.FEMALE;
+            u.setGender(g);
             u.setPhoneNumber(phone);
 
-            // Lưu users (user_type = CUSTOMER)
             userDB.insertUser(u, "CUSTOMER");
 
-            // Lưu accounts (mật khẩu: demo dùng plain; thực tế hãy hash)
             Account acc = new Account(accId, username, password, u);
             userDB.insertAccount(acc);
 
-            // Auto-login: lưu session & chuyển về trang chủ
+            // Auto-login -> về home.jsp
             req.getSession().setAttribute("account", acc);
             resp.sendRedirect(req.getContextPath() + "/home.jsp");
-        } catch (IOException | SQLException e) {
+        }
+        catch (SQLIntegrityConstraintViolationException e) {
+            // Phòng khi chạy đua/điểm race còn dính duplicate từ DB
+            String msg = e.getMessage();
+            String friendly = "Dữ liệu bị trùng. Vui lòng kiểm tra lại.";
+            if (msg != null && msg.contains("accounts.username")) {
+                friendly = "Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.";
+            } else if (msg != null && msg.contains("users.email")) {
+                friendly = "Email đã được đăng ký. Vui lòng dùng email khác.";
+            }
+            req.setAttribute("error", friendly);
+            req.getRequestDispatcher("/SignUp.jsp").forward(req, resp);
+        }
+        catch (ServletException | IOException | SQLException e) {
             req.setAttribute("error", "Đăng ký thất bại: " + e.getMessage());
             req.getRequestDispatcher("/SignUp.jsp").forward(req, resp);
         }

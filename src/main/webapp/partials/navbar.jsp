@@ -9,7 +9,7 @@
   </div>
 
   <nav class="page" aria-label="Chính">
-    <a href="<c:url value='/'/>" class="nav-link">Trang chủ</a>
+    <a href="<c:url value='/home.jsp'/>" class="nav-link">Trang chủ</a>
     <a href="<c:url value='/about'/>" class="nav-link">Giới thiệu</a>
     <a href="<c:url value='/categories'/>" class="nav-link">Danh mục</a>
     <a href="<c:url value='/support'/>" class="nav-link">Hỗ trợ</a>

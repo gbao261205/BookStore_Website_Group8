@@ -9,7 +9,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 /* Reset cơ bản */
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; width: 100%; }
+/*html, body { margin: 0; padding: 0; width: 100%; }*/
 body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Times New Roman', sans-serif; line-height: 1.4; }
 
 /* ===== NAVBAR ===== */
@@ -76,72 +76,6 @@ body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial
 .dropdown-content a:hover { background: #f5f5f5; }
 .dropdown:hover .dropdown-content,
 .dropdown:focus-within .dropdown-content { display: block; }
-
-/* ===== Popover Thông báo ===== */
-.popover {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 360px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
-  z-index: 1000;
-
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(8px);
-  transition: opacity .18s ease, transform .18s ease, visibility 0s .18s;
-}
-
-.popover::before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  right: 28px;
-  width: 0; height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid #fff;
-}
-
-.notify:hover .popover,
-.notify:focus-within .popover {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  transition: opacity .18s ease, transform .18s ease;
-}
-
-.popover-header {
-  padding: 24px 20px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #333;
-  background: #fafafa;
-}
-.avatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: #ffe6e6;
-}
-
-.popover-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-top: 1px solid #eee;
-}
-.popover-actions a {
-  padding: 12px 0;
-  text-align: center;
-  text-decoration: none;
-  color: #222;
-}
-.popover-actions a:hover { background: #f5f5f5; }
 
 /* ===== Nội dung demo ===== */
 .content { padding: 24px; }

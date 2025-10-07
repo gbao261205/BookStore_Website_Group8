@@ -1,3 +1,11 @@
+Servlet\LogoutServlet.class
+Servlet\SignUpServlet.class
+User\Account.class
 bookstore\JakartaRestConfiguration.class
+Servlet\SignInServlet.class
+User\Admin.class
 bookstore\resources\JakartaEE11Resource.class
-User\UserServlet.class
+User\Address.class
+User\User.class
+Data\UserDB.class
+User\EGender.class

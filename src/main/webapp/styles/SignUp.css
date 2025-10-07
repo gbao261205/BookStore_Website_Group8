@@ -1,12 +1,11 @@
-/* SignIn.css */
-body { 
-    font-family: system-ui, 
-        Arial, sans-serif; 
-    margin: 0px; 
-    margin-top: 0px;
+/* SignUp.css */
+body {
+    font-family: system-ui, Arial, sans-serif; 
+    margin: 0px;
+    margin-top: 0;
 }
 .card { 
-    max-width: 420px; 
+    max-width: 520px; 
     margin: 0 auto; 
     margin-top: 10px;
     padding: 20px; 
@@ -15,25 +14,24 @@ body {
 }
 .row { 
     margin-bottom: 12px; 
-}
+    display: flex; 
+    gap: 12px; }
 label { 
     display: block; 
     font-weight: 600; 
     margin-bottom: 6px; 
 }
-input { 
+input, select { 
     width: 100%; 
     padding: 10px; 
     box-sizing: border-box; 
 }
 .error { 
     color: #b00020; 
-    margin-bottom: 12px; 
-}
+    margin-bottom: 12px; }
 .actions { 
     display: flex; 
-    justify-content: 
-        space-between; 
+    justify-content: space-between; 
     align-items: center; 
 }
 button { 

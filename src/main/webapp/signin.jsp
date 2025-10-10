@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Đăng nhập</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/partials/navbar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/SignIn.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/partials/navbar.css">
 
 </head>
 <body>

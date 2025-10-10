@@ -21,7 +21,7 @@ label {
     font-weight: 600; 
     margin-bottom: 6px; 
 }
-input { 
+.card input { 
     width: 100%; 
     padding: 10px; 
     box-sizing: border-box; 
@@ -36,7 +36,7 @@ input {
         space-between; 
     align-items: center; 
 }
-button { 
+.card button { 
     padding: 10px 16px; 
     cursor: pointer; 
 }

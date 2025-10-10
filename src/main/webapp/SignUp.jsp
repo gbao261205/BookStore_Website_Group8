@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Đăng ký</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/partials/navbar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/SignUp.css">
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/partials/navbar.css">
+    
 </head>
 <body>
     <jsp:include page="/partials/navbar.jsp"/>

@@ -18,7 +18,7 @@
     <c:choose>
       <c:when test="${not empty sessionScope.account}">
         <div class="dropdown">
-          <a href="#" class="nav-link account">
+          <a href="<c:url value='/profile'/>" class="nav-link account">
             <c:choose>
               <c:when test="${not empty sessionScope.account.user.fullName}">
                 ${sessionScope.account.user.fullName}

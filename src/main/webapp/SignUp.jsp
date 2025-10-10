@@ -54,7 +54,7 @@
         <div class="row">
           <div style="flex:1">
             <label>Số điện thoại</label>
-            <input type="text" name="phone">
+            <input type="tel" name="phone" pattern="0\d{9}" maxlength="10" required title="Số điện thoại phải có 10 chữ số và bắt đầu bằng 0">
           </div>
         </div>
 

@@ -234,5 +234,27 @@ public class UserDB {
             }
         }
     }
+    
+    // Cập nhật thông tin cơ bản của User
+    public void updateUserProfile(User u) throws SQLException {
+        String sql = "UPDATE users SET full_name=?, email=?, date_of_birth=?, gender=?, phone=?, avatar_url=? WHERE id=?";
+        try (Connection cn = getConn();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+
+            ps.setString(1, u.getFullName());
+            ps.setString(2, u.getEmailAddress());
+            if (u.getDateOfBirth() != null) {
+                ps.setDate(3, java.sql.Date.valueOf(u.getDateOfBirth()));
+            } else {
+                ps.setNull(3, java.sql.Types.DATE);
+            }
+            ps.setString(4, (u.getGender() == null ? EGender.UNKNOWN : u.getGender()).name());
+            ps.setString(5, u.getPhoneNumber());
+            ps.setString(6, u.getAvatarUrl());
+            ps.setString(7, u.getId());
+
+            ps.executeUpdate();
+        }
+    }
 
 }

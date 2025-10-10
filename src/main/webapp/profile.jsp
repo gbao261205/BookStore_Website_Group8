@@ -14,7 +14,6 @@
   <main class="profile-page">
     <div class="profile-card">
       <div class="title">Hồ Sơ Của Tôi</div>
-      <div class="subtitle">Quản lý thông tin hồ sơ để bảo mật tài khoản</div>
 
       <c:if test="${not empty error}"><div class="msg-error">${error}</div></c:if>
       <c:if test="${not empty success}"><div class="msg-ok">${success}</div></c:if>

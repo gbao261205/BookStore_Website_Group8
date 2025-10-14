@@ -3,38 +3,40 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>Đăng nhập</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/SignIn.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/partials/navbar.css">
-
+  <meta charset="UTF-8">
+  <title>Đăng nhập</title>
+  <link rel="stylesheet" href="<c:url value='/partials/navbar.css'/>">
+  <link rel="stylesheet" href="<c:url value='/styles/auth.css'/>">
 </head>
 <body>
-    <jsp:include page="/partials/navbar.jsp"/>
-    <div class="card">
-      <h2>Đăng nhập</h2>
+  <%@ include file="/partials/navbar.jsp" %>
 
-      <%
-        String error = (String) request.getAttribute("error");
-        if (error != null) {
-      %>
-        <div class="error"><%= error %></div>
-      <% } %>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <img class="auth-logo" src="<c:url value='/img/logo.png'/>" alt="Logo">
+      <h1 class="auth-title">Đăng nhập tài khoản</h1>
+      <p class="auth-sub">Chào mừng bạn quay lại! Vui lòng nhập thông tin bên dưới.</p>
 
-      <form action="<%= request.getContextPath() %>/signin" method="post" accept-charset="UTF-8">
-        <div class="row">
-          <label>Username</label>
-          <input type="text" name="username" required>
+      <c:if test="${not empty error}"><div class="err">${error}</div></c:if>
+
+      <form class="auth-form" method="post" action="${pageContext.request.contextPath}/signin">
+        <div>
+          <label class="label" for="username">Email hoặc Tên đăng nhập</label>
+          <input class="input" id="username" name="username" autocomplete="username" required>
         </div>
-        <div class="row">
-          <label>Mật khẩu</label>
-          <input type="password" name="password" required>
+        <div>
+          <label class="label" for="password">Mật khẩu</label>
+          <input class="input" id="password" name="password" type="password" autocomplete="current-password" required>
         </div>
-        <div class="actions">
-          <button type="submit">Đăng nhập</button>
-          <a href="<%= request.getContextPath() %>/signup">Tạo tài khoản mới</a>
-        </div>
+
+        <button class="btn" type="submit">Đăng nhập</button>
       </form>
+
+      <div class="hr"></div>
+      <p class="auth-foot">Chưa có tài khoản?
+        <a href="<c:url value='/signup'/>">Đăng ký ngay</a>
+      </p>
     </div>
+  </div>
 </body>
 </html>

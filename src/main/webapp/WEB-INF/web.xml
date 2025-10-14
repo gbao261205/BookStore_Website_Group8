@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+  <!-- Session -->
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+
+  <!-- ===== Servlets ===== -->
+  <servlet>
+    <servlet-name>SignInServlet</servlet-name>
+    <servlet-class>Servlet.SignInServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SignInServlet</servlet-name>
+    <url-pattern>/signin</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>SignUpServlet</servlet-name>
+    <servlet-class>Servlet.SignUpServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SignUpServlet</servlet-name>
+    <url-pattern>/signup</url-pattern>
+  </servlet-mapping>
+
+  <!-- ===== Welcome page =====
+       Bạn nói trang chủ là index.jsp, nên đặt welcome-file là index.jsp.
+       (Tránh dùng "SignIn.jsp" vì file bạn đang có là "signin.jsp" khác hoa/thường) -->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <!-- ===== JNDI DataSource (Jakarta EE 10) =====
+       Đổi res-type sang jakarta.sql.DataSource (không còn javax.sql.*) -->
+  <resource-ref>
+    <description>DB Pool</description>
+    <res-ref-name>jdbc/YourDB</res-ref-name>
+    <res-type>jakarta.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/styles/*</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/partials/*</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/image/*</url-pattern>
+</servlet-mapping>
+<filter>
+  <filter-name>EncodingFilter</filter-name>
+  <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+  <init-param>
+    <param-name>encoding</param-name>
+    <param-value>UTF-8</param-value>
+  </init-param>
+  <init-param>
+    <param-name>ignore</param-name>
+    <param-value>false</param-value>
+  </init-param>
+</filter>
+<filter-mapping>
+  <filter-name>EncodingFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+  <!-- (Tuỳ chọn) Trang lỗi đẹp mắt
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error/404.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/error/500.jsp</location>
+  </error-page>
+  -->
+</web-app>

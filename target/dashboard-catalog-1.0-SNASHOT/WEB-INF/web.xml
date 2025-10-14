@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                             https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <!-- ===== Dashboard Servlet ===== -->
+    <servlet>
+        <servlet-name>DashboardServlet</servlet-name>
+        <servlet-class>controller.DashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DashboardServlet</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+
+    <!-- ===== Catalog Servlet ===== -->
+    <servlet>
+        <servlet-name>CatalogServlet</servlet-name>
+        <servlet-class>controller.CatalogServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CatalogServlet</servlet-name>
+        <url-pattern>/catalog</url-pattern>
+    </servlet-mapping>
+
+    <!-- ===== Database Init Servlet ===== -->
+    <servlet>
+        <servlet-name>InitDatabase</servlet-name>
+        <servlet-class>dao.DatabaseInitializerServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+    <servlet-name>LowStockServlet</servlet-name>
+    <servlet-class>controller.LowStockServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>LowStockServlet</servlet-name>
+    <url-pattern>/lowstock</url-pattern>
+</servlet-mapping>
+
+
+    <!-- Trang mặc định (tự động vào Dashboard) -->
+    <welcome-file-list>
+        <welcome-file>dashboard</welcome-file>
+    </welcome-file-list>
+
+</web-app>

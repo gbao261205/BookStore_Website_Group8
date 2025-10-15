@@ -1,4 +1,4 @@
-DAO\DB.class
 Model\Book.class
-Controller\HomeServlet.class
+Servlet\HomeServlet.class
 DAO\BookDAO.class
+DAO\impl\DB.class
